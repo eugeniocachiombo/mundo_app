@@ -150,10 +150,11 @@ public class ListaView extends javax.swing.JFrame {
         PaisDAO paisDao = new PaisDAO();
         ArrayList<RelacaoContPais> listaConsulta = new ArrayList<>();
         listaConsulta = paisDao.listarConsulta(palavraConsulta);
-        this.listarNaTebela(listaConsulta);
         
-        if(listaConsulta == null){
+        if(listaConsulta.isEmpty()){
             JOptionPane.showMessageDialog(null, "Informações não encontradas");
+        }else{
+            this.listarNaTebela(listaConsulta);
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
