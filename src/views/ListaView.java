@@ -35,7 +35,7 @@ public class ListaView extends javax.swing.JFrame {
     public void listarNaTebela(ArrayList<RelacaoContPais> listaConsulta) {
         DefaultTableModel linha = (DefaultTableModel) jTable1.getModel();
         linha.setRowCount(0);
-        
+
         for (RelacaoContPais consulta : listaConsulta) {
             Object[] dados = {
                 consulta.getIdPais(),
@@ -89,6 +89,9 @@ public class ListaView extends javax.swing.JFrame {
         txtConsulta.setBackground(new java.awt.Color(51, 51, 51));
         txtConsulta.setForeground(new java.awt.Color(255, 255, 255));
         txtConsulta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtConsultaKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtConsultaKeyTyped(evt);
             }
@@ -145,11 +148,11 @@ public class ListaView extends javax.swing.JFrame {
         ArrayList<RelacaoContPais> listaConsulta = new ArrayList<>();
         listaConsulta = paisDao.listarConsulta(palavraConsulta);
         this.listarNaTebela(listaConsulta);
-        
-        /*if(listaConsulta.isEmpty()){
-            JOptionPane.showMessageDialog(null, "Informações não encontradas");
-        }*/
     }//GEN-LAST:event_txtConsultaKeyTyped
+
+    private void txtConsultaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConsultaKeyPressed
+
+    }//GEN-LAST:event_txtConsultaKeyPressed
 
     /**
      * @param args the command line arguments

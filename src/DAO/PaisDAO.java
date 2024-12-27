@@ -81,7 +81,7 @@ public class PaisDAO {
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             ArrayList<RelacaoContPais> listaContsPaises = new ArrayList<>();
-            
+
             while (rs.next()) {
                 RelacaoContPais contPais = new RelacaoContPais();
                 contPais.setIdPais(rs.getInt("idPais"));
@@ -96,7 +96,7 @@ public class PaisDAO {
             return null;
         }
     }
-    
+
     public ArrayList<RelacaoContPais> listarConsulta(String palavraConsulta) {
         try {
             String sql = "select pais.*,  \n"
@@ -109,11 +109,11 @@ public class PaisDAO {
                     + "    on continente.id = pais.id_continente"
                     + " where continente.nome LIKE ? or pais.nome like ?";
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, "%" + palavraConsulta + "%");
-            stmt.setString(2, "%" + palavraConsulta + "%");
+            stmt.setString(1, palavraConsulta + "%");
+            stmt.setString(2, palavraConsulta + "%");
             ResultSet rs = stmt.executeQuery();
             ArrayList<RelacaoContPais> listaContsPaises = new ArrayList<>();
-            
+
             while (rs.next()) {
                 RelacaoContPais contPais = new RelacaoContPais();
                 contPais.setIdPais(rs.getInt("idPais"));
