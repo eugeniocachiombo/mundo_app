@@ -55,7 +55,6 @@ public class ListaView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtConsulta = new javax.swing.JTextField();
-        btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -89,17 +88,12 @@ public class ListaView extends javax.swing.JFrame {
 
         txtConsulta.setBackground(new java.awt.Color(51, 51, 51));
         txtConsulta.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(txtConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, 190, 30));
-
-        btnPesquisar.setBackground(new java.awt.Color(0, 153, 0));
-        btnPesquisar.setForeground(new java.awt.Color(255, 255, 255));
-        btnPesquisar.setText("Pesquisar");
-        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisarActionPerformed(evt);
+        txtConsulta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtConsultaKeyTyped(evt);
             }
         });
-        jPanel1.add(btnPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, 190, 29));
+        jPanel1.add(txtConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, 190, 30));
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(0, 0));
 
@@ -116,7 +110,7 @@ public class ListaView extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 570, 230));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 570, 270));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -145,18 +139,17 @@ public class ListaView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+    private void txtConsultaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConsultaKeyTyped
         String palavraConsulta = txtConsulta.getText();
         PaisDAO paisDao = new PaisDAO();
         ArrayList<RelacaoContPais> listaConsulta = new ArrayList<>();
         listaConsulta = paisDao.listarConsulta(palavraConsulta);
+        this.listarNaTebela(listaConsulta);
         
-        if(listaConsulta.isEmpty()){
+        /*if(listaConsulta.isEmpty()){
             JOptionPane.showMessageDialog(null, "Informações não encontradas");
-        }else{
-            this.listarNaTebela(listaConsulta);
-        }
-    }//GEN-LAST:event_btnPesquisarActionPerformed
+        }*/
+    }//GEN-LAST:event_txtConsultaKeyTyped
 
     /**
      * @param args the command line arguments
@@ -195,7 +188,6 @@ public class ListaView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
