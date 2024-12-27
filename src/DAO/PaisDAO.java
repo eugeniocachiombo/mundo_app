@@ -107,10 +107,10 @@ public class PaisDAO {
                     + "    from pais\n"
                     + "    inner join continente\n"
                     + "    on continente.id = pais.id_continente"
-                    + " where continente.nome = ? or pais.nome = ?";
+                    + " where continente.nome LIKE ? or pais.nome like ?";
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, palavraConsulta);
-            stmt.setString(2, palavraConsulta);
+            stmt.setString(1, "%" + palavraConsulta + "%");
+            stmt.setString(2, "%" + palavraConsulta + "%");
             ResultSet rs = stmt.executeQuery();
             ArrayList<RelacaoContPais> listaContsPaises = new ArrayList<>();
             
