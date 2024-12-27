@@ -11,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import models.Continente;
 import models.Pais;
+import models.RelacaoContPais;
 
 /**
  *
@@ -21,12 +23,10 @@ public class PaisDAO {
 
     public Connection con;
     public Conexao conexao;
-    public ArrayList<Pais> listaPaises;
 
     public PaisDAO() {
         conexao = new Conexao();
         con = conexao.getConexao();
-        listaPaises = new ArrayList<>();
     }
 
     public void cadastrar(Pais pais) {
@@ -68,7 +68,7 @@ public class PaisDAO {
         }
     }
 
-    public ArrayList<Pais> listar() {
+    public ArrayList<RelacaoContPais> listar() {
         try {
             String sql = "select pais.*,  \n"
                     + "    continente.id as idContinente,\n"
@@ -80,15 +80,49 @@ public class PaisDAO {
                     + "    on continente.id = pais.id_continente";
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
+            ArrayList<RelacaoContPais> listaContsPaises = new ArrayList<>();
             
             while (rs.next()) {
-                Pais pais = new Pais();
-                pais.setId(rs.getInt("id"));
-                pais.setNome(rs.getString("nome"));
-                pais.setIdCont(rs.getInt("idContinente"));
-                listaPaises.add(pais);
+                RelacaoContPais contPais = new RelacaoContPais();
+                contPais.setIdPais(rs.getInt("idPais"));
+                contPais.setNomePais(rs.getString("nomePais"));
+                contPais.setIdContinente(rs.getInt("idContinente"));
+                contPais.setNomeContinente(rs.getString("nomeContinente"));
+                listaContsPaises.add(contPais);
             }
-            return listaPaises;
+            return listaContsPaises;
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public ArrayList<RelacaoContPais> listarConsulta(String palavraConsulta) {
+        try {
+            String sql = "select pais.*,  \n"
+                    + "    continente.id as idContinente,\n"
+                    + "    continente.nome as nomeContinente,\n"
+                    + "    pais.id as idPais,\n"
+                    + "    pais.nome as nomePais\n"
+                    + "    from pais\n"
+                    + "    inner join continente\n"
+                    + "    on continente.id = pais.id_continente"
+                    + " where continente.nome = ? or pais.nome = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, palavraConsulta);
+            stmt.setString(2, palavraConsulta);
+            ResultSet rs = stmt.executeQuery();
+            ArrayList<RelacaoContPais> listaContsPaises = new ArrayList<>();
+            
+            while (rs.next()) {
+                RelacaoContPais contPais = new RelacaoContPais();
+                contPais.setIdPais(rs.getInt("idPais"));
+                contPais.setNomePais(rs.getString("nomePais"));
+                contPais.setIdContinente(rs.getInt("idContinente"));
+                contPais.setNomeContinente(rs.getString("nomeContinente"));
+                listaContsPaises.add(contPais);
+            }
+            return listaContsPaises;
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
             return null;
