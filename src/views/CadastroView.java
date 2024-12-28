@@ -10,6 +10,7 @@ import DAO.PaisDAO;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import models.Continente;
 import models.Pais;
 
@@ -216,7 +217,16 @@ public class CadastroView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                this.abrirDesigner();
                 new CadastroView().setVisible(true);
+            }
+            
+            public void abrirDesigner() {
+                try {
+                    UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
